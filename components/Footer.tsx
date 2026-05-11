@@ -76,7 +76,7 @@ export default function Footer() {
               <img
                 src="/logo.png"
                 alt="WRNXT Logo"
-                className="h-12 w-auto"
+                className="h-16 w-auto"
               />
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">

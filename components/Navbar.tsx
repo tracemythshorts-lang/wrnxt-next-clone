@@ -81,7 +81,7 @@ export default function Navbar() {
           <img
             src="/logo.png"
             alt="WRNXT Logo"
-            className="h-10 w-auto"
+            className="h-14 w-auto scale-110"
           />
         </Link>
 
@@ -91,7 +91,7 @@ export default function Navbar() {
             <Link
               key={href}
               href={href}
-              className="rounded-md px-3 py-1.5 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-800/60 transition-all duration-150"
+              className="rounded-md px-3 py-1.5 text-sm font-semibold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-800/60 transition-all duration-150"
             >
               {label}
             </Link>
@@ -102,7 +102,7 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-4">
           <Link
             href="/contact"
-            className="inline-flex h-9 items-center justify-center rounded-lg bg-zinc-900 dark:bg-white px-4 text-sm font-semibold text-white dark:text-zinc-900 shadow-sm transition-all duration-150 hover:bg-zinc-700 dark:hover:bg-zinc-200 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900"
+            className="inline-flex h-11 items-center justify-center rounded-xl bg-gradient-to-r from-[#3D3DAC] to-[#7CC820] px-6 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900"
           >
             Book Strategy Call
           </Link>

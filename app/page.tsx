@@ -5,32 +5,32 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center">
       <section className="w-full relative py-24 md:py-32 lg:py-48 overflow-hidden flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8">
         {/* Subtle Background Gradient */}
-        <div className="absolute inset-0 -z-10 h-full w-full bg-white dark:bg-black bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+        <div className="absolute inset-0 -z-10 h-full w-full bg-[#0f172a] bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
         
-        <div className="max-w-4xl mx-auto space-y-8 z-10">
-          <div className="inline-flex items-center rounded-full border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 px-3 py-1 text-sm font-medium">
-            <span className="flex h-2 w-2 rounded-full bg-black dark:bg-white mr-2"></span>
+        <div className="max-w-4xl mx-auto space-y-10 z-10">
+          <div className="inline-flex items-center rounded-full border border-zinc-800 bg-zinc-900/50 backdrop-blur-sm px-4 py-1.5 text-sm font-semibold text-zinc-300">
+            <span className="flex h-2.5 w-2.5 rounded-full bg-[#7CC820] mr-2 animate-pulse"></span>
             Now open for new projects
           </div>
           
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
-            Build the <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-500 dark:from-white dark:to-gray-500">future</span> of digital.
+          <h1 className="text-6xl font-extrabold tracking-tight sm:text-7xl md:text-8xl">
+            Build the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3D3DAC] to-[#7CC820]">future</span> of digital.
           </h1>
           
-          <p className="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-400 sm:text-xl leading-relaxed">
+          <p className="mx-auto max-w-2xl text-xl text-zinc-400 sm:text-2xl leading-relaxed">
             We are a digital product studio crafting premium web applications for ambitious modern companies. Fast, secure, and beautiful.
           </p>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-6">
             <Link
               href="/contact"
-              className="w-full sm:w-auto inline-flex h-12 items-center justify-center rounded-md bg-black px-8 py-2 text-sm font-medium text-white shadow-lg transition-all hover:bg-gray-800 hover:scale-[1.02] dark:bg-white dark:text-black dark:hover:bg-gray-200"
+              className="w-full sm:w-auto inline-flex h-14 items-center justify-center rounded-2xl bg-gradient-to-r from-[#3D3DAC] to-[#7CC820] px-10 py-2 text-base font-bold text-white shadow-2xl transition-all duration-300 hover:opacity-90 hover:scale-105 hover:shadow-[#3D3DAC]/20"
             >
               Start a project
             </Link>
             <Link
               href="#work"
-              className="w-full sm:w-auto inline-flex h-12 items-center justify-center rounded-md border border-gray-200 bg-white px-8 py-2 text-sm font-medium shadow-sm transition-all hover:bg-gray-50 hover:scale-[1.02] dark:border-gray-800 dark:bg-black dark:hover:bg-gray-900"
+              className="w-full sm:w-auto inline-flex h-14 items-center justify-center rounded-2xl border border-zinc-800 bg-zinc-900/40 backdrop-blur-md px-10 py-2 text-base font-bold text-white transition-all duration-300 hover:bg-zinc-800 hover:scale-105"
             >
               View our work
             </Link>
