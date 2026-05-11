@@ -405,83 +405,84 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 bg-zinc-50 dark:bg-zinc-950/50">
+      <section id="contact" className="py-24 bg-zinc-50 dark:bg-[#050505]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-20 items-start">
-            <div className="space-y-12">
-              <div>
-                <h2 className="text-4xl md:text-5xl font-black mb-6 leading-tight">Let's build something <span className="text-primary">extraordinary</span> together.</h2>
-                <p className="text-xl text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                  Connect with our team today for personalized assistance and tailored solutions. We're ready to unlock your digital potential.
-                </p>
-              </div>
-              
-              <div className="space-y-8">
-                {[
-                  { 
-                    label: "Our Office", 
-                    value: "2-32/20, GaneshNagar, JeppinaMogaru, Mangalore - 575009", 
-                    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                  },
-                  { 
-                    label: "Email Us", 
-                    value: "info@Wrnxt.com", 
-                    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                  },
-                  { 
-                    label: "Call Us", 
-                    value: "+91 8 12345 5500", 
-                    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                  }
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-6 group">
-                    <div className="flex-shrink-0 w-12 h-12 bg-white dark:bg-zinc-900 shadow-lg rounded-2xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                      {item.icon}
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-1">{item.label}</p>
-                      <p className="text-lg font-bold text-zinc-800 dark:text-zinc-200">{item.value}</p>
-                    </div>
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter">Initiate <span className="text-primary text-glow">Transformation</span></h2>
+            <p className="text-xl text-zinc-500 font-bold max-w-2xl mx-auto">Connect with our engineering collective to architect your digital blueprint.</p>
+          </div>
+
+          <div className="bg-white dark:bg-zinc-900 rounded-[3.5rem] shadow-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 grid lg:grid-cols-2">
+            {/* Map Area */}
+            <div className="relative h-[450px] lg:h-auto bg-zinc-100 dark:bg-zinc-800 group overflow-hidden">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15559.512588500866!2d74.867945!3d12.851146!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba35b82d8779555%3A0x3a59dc3cbb7a9c4b!2sWRNXT!5e0!3m2!1sen!2sin!4v1694967586838!5m2!1sen!2sin"
+                className="absolute inset-0 w-full h-full grayscale-[0.2] contrast-[1.1] dark:invert dark:hue-rotate-180 transition-all duration-700 group-hover:scale-105"
+                loading="lazy"
+              ></iframe>
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent pointer-events-none"></div>
+              <div className="absolute bottom-10 left-10 right-10 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-xl p-8 rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-zinc-800/50 space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center shrink-0">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                   </div>
-                ))}
-              </div>
-              <div className="pt-8 border-t border-zinc-100 dark:border-zinc-800">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15559.512588500866!2d74.867945!3d12.851146!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba35b82d8779555%3A0x3a59dc3cbb7a9c4b!2sWRNXT!5e0!3m2!1sen!2sin!4v1694967586838!5m2!1sen!2sin"
-                  className="w-full h-80 rounded-[2.5rem] shadow-xl hover:shadow-2xl transition-all duration-500 border-4 border-white dark:border-zinc-800"
-                  loading="lazy"
-                ></iframe>
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 mb-1">HQ Architecture</p>
+                    <p className="text-base font-bold leading-tight">2-32/20, GaneshNagar, <br /> JeppinaMogaru, Mangalore</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center shrink-0">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 mb-1">Secure Inbox</p>
+                    <p className="text-base font-bold">info@Wrnxt.com</p>
+                  </div>
+                </div>
               </div>
             </div>
-            
-            <div className="bg-white dark:bg-zinc-900 p-12 lg:p-16 rounded-[3.5rem] shadow-2xl shadow-primary/5 border border-zinc-200 dark:border-zinc-800 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
-              <form className="relative z-10 space-y-10">
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 ml-4">The Principal (Name)</label>
+
+            {/* Form Area */}
+            <div className="p-10 lg:p-16 flex flex-col justify-center">
+              <form 
+                name="contact-blueprint" 
+                method="POST" 
+                data-netlify="true"
+                className="space-y-8"
+              >
+                <input type="hidden" name="form-name" value="contact-blueprint" />
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Principal Lead</label>
                     <input
+                      name="name"
                       type="text"
-                      placeholder="John Doe"
-                      className="w-full px-8 py-6 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800 rounded-[2rem] focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-bold text-lg"
+                      required
+                      placeholder="Full Name"
+                      className="w-full px-8 py-5 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-700 rounded-2xl focus:ring-2 focus:ring-primary outline-none transition-all font-bold text-lg"
                     />
                   </div>
-                  <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 ml-4">Corporate Email</label>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Corporate Auth</label>
                     <input
+                      name="email"
                       type="email"
-                      placeholder="john@company.com"
-                      className="w-full px-8 py-6 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800 rounded-[2rem] focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-bold text-lg"
+                      required
+                      placeholder="corporate@email.com"
+                      className="w-full px-8 py-5 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-700 rounded-2xl focus:ring-2 focus:ring-primary outline-none transition-all font-bold text-lg"
                     />
                   </div>
                 </div>
                 
-                <div className="space-y-3">
-                  <label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-400 ml-4">Project Blueprint (Technical Requirements)</label>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Project Vision (Blueprint)</label>
                   <textarea
-                    placeholder="Briefly describe your vision and technical requirements..."
-                    rows={6}
-                    className="w-full px-8 py-6 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800 rounded-[2.5rem] focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-bold text-lg resize-none"
+                    name="message"
+                    required
+                    placeholder="Briefly describe your vision and architectural requirements..."
+                    rows={4}
+                    className="w-full px-8 py-5 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-700 rounded-[2.5rem] focus:ring-2 focus:ring-primary outline-none transition-all font-bold text-lg resize-none"
                   ></textarea>
                 </div>
                 
@@ -489,13 +490,15 @@ export default function Home() {
                   type="submit"
                   className="w-full py-7 bg-primary text-white rounded-[2.5rem] font-black text-2xl shadow-[0_20px_60px_rgba(8,145,178,0.3)] hover:shadow-[0_20px_60px_rgba(8,145,178,0.5)] hover:-translate-y-1 active:scale-[0.98] transition-all flex items-center justify-center gap-4"
                 >
-                  Initiate Transformation
+                  Submit Blueprint
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                 </button>
                 
-                <p className="text-center text-zinc-400 text-[10px] font-black uppercase tracking-[0.4em]">
-                  Secure & Confidential Project Consultation
-                </p>
+                <div className="flex items-center justify-center gap-4 text-zinc-400">
+                   <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800"></div>
+                   <p className="text-[9px] font-black uppercase tracking-[0.5em]">Secure & Encrypted</p>
+                   <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800"></div>
+                </div>
               </form>
             </div>
           </div>
