@@ -20,10 +20,24 @@ export const viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "WR Next Digital | Next-Gen Agency",
-  description: "Modern digital experiences built with precision and scale. We build the future of the web.",
-  keywords: ["Digital Agency", "Next.js", "Web Development", "SaaS", "Startup"],
-  authors: [{ name: "WR Next Digital" }],
+  title: "WRNXT Digital | High-Velocity Software Architecture & Digital Governance",
+  description: "WRNXT is a premier digital engineering collective specializing in mission-critical software architecture, zero-downtime IT governance, and high-impact digital marketing for ambitious global brands.",
+  keywords: [
+    "Software Architecture", 
+    "Digital Governance", 
+    "Enterprise Software Engineering", 
+    "High-Velocity Marketing", 
+    "Zero-Downtime IT Support", 
+    "WRNXT Digital", 
+    "CTO Consulting",
+    "Digital Transformation"
+  ],
+  authors: [{ name: "WRNXT Digital Engineering" }],
+  openGraph: {
+    title: "WRNXT Digital | High-Velocity Software Architecture",
+    description: "Mission-critical ecosystems built for absolute scale.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

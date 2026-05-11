@@ -4,37 +4,28 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 
 const NAV_LINKS = [
-  { label: "Home",         href: "/" },
-  { label: "Services",     href: "/services" },
-  { label: "Case Studies", href: "/case-studies" },
-  { label: "Process",      href: "/process" },
-  { label: "About",        href: "/about" },
-  { label: "Blog",         href: "/blog" },
-  { label: "Contact",      href: "/contact" },
+  { label: "Home",     href: "/#hero" },
+  { label: "About",    href: "/#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Team",     href: "/#team" },
+  { label: "Contact",  href: "/#contact" },
 ];
 
 export default function Navbar() {
-  const [scrolled,   setScrolled]   = useState(false);
-  const [menuOpen,   setMenuOpen]   = useState(false);
-  const menuRef  = useRef<HTMLDivElement>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
-  /* Scroll detection */
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Close menu on outside click */
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (
-        menuOpen &&
-        menuRef.current &&
-        !menuRef.current.contains(e.target as Node) &&
-        !toggleRef.current?.contains(e.target as Node)
-      ) {
+      if (menuOpen && menuRef.current && !menuRef.current.contains(e.target as Node) && !toggleRef.current?.contains(e.target as Node)) {
         setMenuOpen(false);
       }
     };
@@ -42,136 +33,95 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handler);
   }, [menuOpen]);
 
-  /* Close menu on Escape */
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && menuOpen) {
-        setMenuOpen(false);
-        toggleRef.current?.focus();
-      }
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [menuOpen]);
-
-  /* Lock body scroll while mobile menu open */
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [menuOpen]);
-
   return (
     <header
       className={[
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
         scrolled
-          ? "bg-white/80 dark:bg-black/80 backdrop-blur-xl border-b border-zinc-200/60 dark:border-zinc-800/60 shadow-sm shadow-zinc-100/40 dark:shadow-black/40"
-          : "bg-transparent",
+          ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-zinc-200/50 dark:border-zinc-800/50 py-2 shadow-lg"
+          : "bg-transparent py-4",
       ].join(" ")}
-      role="banner"
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-
-        {/* Logo */}
-        <Link
-          href="/"
-          aria-label="WR Next Digital — home"
-          className="flex items-center transition-opacity hover:opacity-75"
-        >
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
+        <Link href="/" className="flex items-center gap-2 group bg-white p-2 rounded-xl shadow-sm border border-zinc-100 transition-all hover:shadow-md">
           <img
-            src="/logo.png"
+            src="https://wrnxt.com/assets/img/wrnxt%20Logo_1.png"
             alt="WRNXT Logo"
-            className="h-14 w-auto scale-110"
+            className="h-10 w-auto group-hover:scale-105 transition-transform duration-300"
           />
         </Link>
 
-        {/* Desktop nav */}
-        <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-10 ml-auto mr-12">
           {NAV_LINKS.map(({ label, href }) => (
             <Link
               key={href}
               href={href}
-              className="rounded-md px-3 py-1.5 text-sm font-semibold text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100/70 dark:hover:bg-zinc-800/60 transition-all duration-150"
+              className="text-sm font-black uppercase tracking-[0.2em] text-zinc-500 hover:text-primary transition-all duration-300"
             >
               {label}
             </Link>
           ))}
         </nav>
 
-        {/* Desktop CTA */}
         <div className="hidden lg:flex items-center gap-4">
-          <Link
-            href="/contact"
-            className="inline-flex h-11 items-center justify-center rounded-xl bg-gradient-to-r from-[#3D3DAC] to-[#7CC820] px-6 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:opacity-90 hover:scale-105 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900"
+          <button
+            onClick={() => {
+              const el = document.getElementById('contact');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="px-6 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-bold shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300"
           >
-            Book Strategy Call
-          </Link>
+            Get Started
+          </button>
         </div>
 
-        {/* Mobile hamburger */}
         <button
           ref={toggleRef}
-          type="button"
-          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-          onClick={() => setMenuOpen((v) => !v)}
-          className="lg:hidden flex flex-col justify-center items-center w-9 h-9 rounded-md gap-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 dark:focus-visible:outline-white"
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="lg:hidden p-2 text-foreground"
         >
-          <span
-            className={[
-              "block h-0.5 w-5 rounded-full bg-zinc-800 dark:bg-zinc-200 transition-all duration-300 origin-center",
-              menuOpen ? "translate-y-2 rotate-45" : "",
-            ].join(" ")}
-          />
-          <span
-            className={[
-              "block h-0.5 w-5 rounded-full bg-zinc-800 dark:bg-zinc-200 transition-all duration-200",
-              menuOpen ? "opacity-0 scale-x-0" : "",
-            ].join(" ")}
-          />
-          <span
-            className={[
-              "block h-0.5 w-5 rounded-full bg-zinc-800 dark:bg-zinc-200 transition-all duration-300 origin-center",
-              menuOpen ? "-translate-y-2 -rotate-45" : "",
-            ].join(" ")}
-          />
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {menuOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       <div
-        id="mobile-menu"
         ref={menuRef}
-        aria-hidden={!menuOpen}
         className={[
-          "lg:hidden overflow-hidden transition-all duration-300 ease-in-out",
-          menuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0",
-          "bg-white/95 dark:bg-zinc-950/95 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800",
+          "lg:hidden fixed inset-x-0 top-[72px] bg-background border-b border-border p-6 transition-all duration-300 transform",
+          menuOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none",
         ].join(" ")}
       >
-        <nav aria-label="Mobile navigation" className="flex flex-col px-4 py-4 gap-1">
+        <div className="flex flex-col gap-4">
           {NAV_LINKS.map(({ label, href }) => (
             <Link
               key={href}
               href={href}
               onClick={() => setMenuOpen(false)}
-              className="rounded-lg px-4 py-3 text-base font-medium text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors duration-150"
+              className="text-lg font-medium text-foreground hover:text-primary transition-colors"
             >
               {label}
             </Link>
           ))}
-          <div className="mt-3 pt-3 border-t border-zinc-200 dark:border-zinc-800">
-            <Link
-              href="/contact"
-              onClick={() => setMenuOpen(false)}
-              className="flex w-full items-center justify-center rounded-lg bg-zinc-900 dark:bg-white px-4 py-3 text-sm font-semibold text-white dark:text-zinc-900 hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900"
-            >
-              Book Strategy Call
-            </Link>
-          </div>
-        </nav>
+          <button
+            onClick={() => {
+              setMenuOpen(false);
+              const el = document.getElementById('contact');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="mt-4 px-6 py-3 rounded-xl bg-primary text-primary-foreground text-center font-bold"
+          >
+            Get Started
+          </button>
+        </div>
       </div>
     </header>
   );
 }
+
