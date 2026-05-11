@@ -448,7 +448,6 @@ export default function Home() {
               <form 
                 name="contact-blueprint" 
                 method="POST" 
-                data-netlify="true"
                 className="space-y-8"
               >
                 <input type="hidden" name="form-name" value="contact-blueprint" />
