@@ -275,7 +275,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row items-center gap-6 pt-6">
                 <Link
                   href="#contact"
-                  className="w-full sm:w-auto px-10 py-4 bg-primary text-white rounded-2xl font-black text-lg shadow-[0_10px_40px_rgba(8,145,178,0.3)] hover:shadow-[0_20px_50px_rgba(8,145,178,0.5)] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3"
+                  className="w-full sm:w-auto px-10 py-4 bg-primary text-white rounded-2xl font-black text-lg shadow-[0_10px_40px_rgba(8,145,178,0.3)] hover:bg-zinc-950 dark:hover:bg-white dark:hover:text-zinc-950 hover:text-white hover:shadow-[0_20px_50px_rgba(8,145,178,0.5)] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3"
                 >
                   Get a Proposal
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
@@ -595,7 +595,7 @@ export default function Home() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-7 bg-primary text-white rounded-[2.5rem] font-black text-2xl shadow-[0_20px_60px_rgba(8,145,178,0.3)] hover:bg-[#0ea5e9] hover:shadow-[0_20px_60px_rgba(8,145,178,0.5)] hover:-translate-y-1 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-4 cursor-pointer group"
+                    className="w-full py-7 bg-primary text-white rounded-[2.5rem] font-black text-2xl shadow-[0_20px_60px_rgba(8,145,178,0.3)] hover:bg-zinc-950 dark:hover:bg-white dark:hover:text-zinc-950 hover:shadow-[0_20px_60px_rgba(8,145,178,0.5)] hover:-translate-y-1 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-4 cursor-pointer group"
                   >
                     {isSubmitting ? (
                       <>

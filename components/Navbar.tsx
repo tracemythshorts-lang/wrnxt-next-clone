@@ -70,7 +70,7 @@ export default function Navbar() {
               const el = document.getElementById('contact');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-8 py-3 rounded-full bg-primary text-primary-foreground text-sm font-bold shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300"
+            className="px-8 py-3 rounded-full bg-primary text-primary-foreground text-sm font-bold shadow-lg shadow-primary/25 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-900 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300"
           >
             Get Started
           </button>
