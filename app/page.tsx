@@ -263,9 +263,9 @@ export default function Home() {
                 <span className="text-xs font-black uppercase tracking-widest text-zinc-600 dark:text-zinc-400">Digital Solutions Partner</span>
               </div>
               
-              <p className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4">Innovative Digital Growth</p>
+              <p className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4">Strategic Digital Engineering</p>
               <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.95] text-zinc-900 dark:text-white">
-                Building <br /> <span className="text-primary text-glow">Digital</span> <br /> Success.
+                Engineering <br /> <span className="text-primary text-glow">High-Velocity</span> <br /> Digital Success.
               </h1>
               
               <p className="max-w-xl text-lg md:text-xl text-zinc-500 dark:text-zinc-400 leading-relaxed font-bold">
@@ -372,9 +372,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
             <div className="max-w-2xl">
-              <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6">Service <span className="text-primary">Architecture</span></h2>
+              <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6">Service <span className="text-primary">Ecosystems</span></h2>
               <p className="text-xl text-zinc-500 font-bold">
-                Deploying elite technical stacks and high-velocity marketing strategies to secure market dominance.
+                Deploying mission-critical software architecture and high-yield marketing strategies to secure market dominance.
               </p>
             </div>
             <button 
