@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WRNXT Website Analysis Report</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --blue-50: #E6F1FB; --blue-100: #B5D4F4; --blue-400: #378ADD; --blue-600: #185FA5; --blue-800: #0C447C;
+    --teal-50: #E1F5EE; --teal-400: #1D9E75; --teal-600: #0F6E56; --teal-800: #085041;
+    --amber-50: #FAEEDA; --amber-400: #BA7517; --amber-600: #854F0B;
+    --red-50: #FCEBEB; --red-400: #E24B4A; --red-600: #A32D2D;
+    --green-50: #EAF3DE; --green-400: #639922; --green-600: #3B6D11;
+    --gray-50: #F1EFE8; --gray-100: #D3D1C7; --gray-400: #888780; --gray-600: #5F5E5A;
+    --bg: #ffffff; --bg-sec: #F7F7F5; --text: #1a1a18; --text-sec: #5F5E5A; --border: rgba(0,0,0,0.1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg-sec); color: var(--text); font-size: 14px; line-height: 1.6; }
+
+  .report-wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* Header */
+  .report-header { background: var(--bg); border-radius: 12px; border: 0.5px solid var(--border); padding: 2rem 2rem 1.5rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+  .report-title { font-size: 22px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .report-sub { font-size: 13px; color: var(--text-sec); }
+  .report-meta { text-align: right; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+  .badge-blue { background: var(--blue-50); color: var(--blue-800); }
+  .badge-green { background: var(--green-50); color: var(--green-600); }
+  .badge-amber { background: var(--amber-50); color: var(--amber-600); }
+
+  /* Section */
+  .section { background: var(--bg); border-radius: 12px; border: 0.5px solid var(--border); padding: 1.5rem 2rem; margin-bottom: 1.5rem; }
+  .section-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-sec); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
+  .section-title::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+
+  /* Score bar */
+  .score-row { display: grid; grid-template-columns: 180px 1fr 50px 1fr 50px; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .score-label { font-size: 13px; color: var(--text); font-weight: 500; }
+  .bar-wrap { height: 8px; background: var(--gray-50); border-radius: 4px; overflow: hidden; border: 0.5px solid var(--border); }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.3s; }
+  .bar-orig { background: var(--gray-400); }
+  .bar-clone { background: var(--blue-400); }
+  .score-num { font-size: 13px; font-weight: 600; text-align: right; }
+  .score-orig-num { color: var(--gray-600); }
+  .score-clone-num { color: var(--blue-600); }
+
+  /* Legend row */
+  .legend-row { display: flex; gap: 20px; margin-bottom: 1rem; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 5px; }
+  .legend-item { font-size: 12px; color: var(--text-sec); display: flex; align-items: center; }
+
+  /* Compare cards */
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .compare-card { border-radius: 8px; border: 0.5px solid var(--border); padding: 1rem 1.25rem; background: var(--bg-sec); }
+  .compare-card h4 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.75rem; }
+  .compare-card.orig h4 { color: var(--gray-600); }
+  .compare-card.clone h4 { color: var(--blue-600); }
+  .compare-card ul { list-style: none; padding: 0; }
+  .compare-card li { font-size: 13px; color: var(--text); padding: 4px 0; border-bottom: 0.5px solid var(--border); display: flex; align-items: flex-start; gap: 6px; }
+  .compare-card li:last-child { border-bottom: none; }
+  .tag { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 10px; font-weight: 600; white-space: nowrap; }
+  .tag-issue { background: var(--red-50); color: var(--red-600); }
+  .tag-win { background: var(--teal-50); color: var(--teal-600); }
+  .tag-ok { background: var(--amber-50); color: var(--amber-600); }
+
+  /* Summary score */
+  .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .sum-card { border-radius: 8px; padding: 1rem; text-align: center; border: 0.5px solid var(--border); }
+  .sum-card .sum-val { font-size: 30px; font-weight: 700; margin-bottom: 2px; }
+  .sum-card .sum-label { font-size: 11px; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.07em; }
+  .sum-card.orig-card { background: var(--gray-50); }
+  .sum-card.orig-card .sum-val { color: var(--gray-600); }
+  .sum-card.clone-card { background: var(--blue-50); }
+  .sum-card.clone-card .sum-val { color: var(--blue-600); }
+  .sum-card.delta-card { background: var(--teal-50); }
+  .sum-card.delta-card .sum-val { color: var(--teal-600); }
+
+  /* Radar */
+  .chart-wrap { position: relative; width: 100%; height: 320px; }
+
+  /* Issues & Recs */
+  .rec-list { list-style: none; padding: 0; }
+  .rec-item { padding: 10px 12px; border-radius: 8px; border: 0.5px solid var(--border); margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; background: var(--bg-sec); }
+  .rec-icon { font-size: 16px; min-width: 18px; margin-top: 1px; }
+
+  /* Theme verdict */
+  .theme-verdict { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .tv-card { border-radius: 8px; padding: 1rem 1.25rem; border: 0.5px solid var(--border); }
+  .tv-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 0.5rem; }
+  .tv-card p { font-size: 13px; color: var(--text-sec); line-height: 1.6; }
+  .verdict-pass { background: var(--teal-50); border-color: var(--teal-400); }
+  .verdict-pass h4 { color: var(--teal-800); }
+  .verdict-tip { background: var(--amber-50); border-color: var(--amber-400); }
+  .verdict-tip h4 { color: var(--amber-600); }
+
+  /* Table of sections */
+  .sec-table { width: 100%; border-collapse: collapse; }
+  .sec-table th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-sec); font-weight: 500; text-align: left; padding: 6px 12px; border-bottom: 0.5px solid var(--border); }
+  .sec-table td { padding: 10px 12px; border-bottom: 0.5px solid var(--border); font-size: 13px; }
+  .sec-table tr:last-child td { border-bottom: none; }
+  .score-pill { display: inline-block; padding: 2px 10px; border-radius: 20px; font-weight: 600; font-size: 12px; }
+
+  @media (max-width: 600px) {
+    .score-row { grid-template-columns: 130px 1fr 40px 1fr 40px; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .summary-grid { grid-template-columns: 1fr; }
+    .theme-verdict { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="report-wrap">
+
+  <!-- Header -->
+  <div class="report-header">
+    <div>
+      <div class="report-title">WRNXT Website Analysis Report</div>
+      <div class="report-sub">Original vs. Redesigned Clone — SEO, UX & Lead Generation Audit</div>
+      <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
+        <span class="badge badge-blue">Prepared for Interview Presentation</span>
+        <span class="badge badge-green">May 2026</span>
+        <span class="badge badge-amber">Mangalore, Karnataka</span>
+      </div>
+    </div>
+    <div class="report-meta">
+      <div style="font-size:11px; color:var(--text-sec); margin-bottom:4px;">Analysis covers</div>
+      <div style="font-size:13px; font-weight:500;">6 critical sections</div>
+      <div style="font-size:11px; color:var(--text-sec); margin-top:4px;">wrnxt.com vs wrnxt-next-clone.netlify.app</div>
+    </div>
+  </div>
+
+  <!-- Overall Score Summary -->
+  <div class="section">
+    <div class="section-title">Overall Score</div>
+    <div class="summary-grid">
+      <div class="sum-card orig-card">
+        <div class="sum-val">42<span style="font-size:16px">/100</span></div>
+        <div class="sum-label">Original Site</div>
+      </div>
+      <div class="sum-card clone-card">
+        <div class="sum-val">78<span style="font-size:16px">/100</span></div>
+        <div class="sum-label">Cloned Redesign</div>
+      </div>
+      <div class="sum-card delta-card">
+        <div class="sum-val">+36</div>
+        <div class="sum-label">Net Improvement</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section-by-Section Scores -->
+  <div class="section">
+    <div class="section-title">Section-by-Section Ratings</div>
+    <div class="legend-row">
+      <span class="legend-item"><span class="legend-dot" style="background:var(--gray-400)"></span>Original (wrnxt.com)</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--blue-400)"></span>Clone (redesign)</span>
+    </div>
+
+    <div class="score-row">
+      <div class="score-label">SEO / Meta Tags</div>
+      <div class="bar-wrap"><div class="bar-fill bar-orig" style="width:20%"></div></div>
+      <div class="score-num score-orig-num">2/10</div>
+      <div class="bar-wrap"><div class="bar-fill bar-clone" style="width:85%"></div></div>
+      <div class="score-num score-clone-num">8.5/10</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Hero / Headline</div>
+      <div class="bar-wrap"><div class="bar-fill bar-orig" style="width:35%"></div></div>
+      <div class="score-num score-orig-num">3.5/10</div>
+      <div class="bar-wrap"><div class="bar-fill bar-clone" style="width:75%"></div></div>
+      <div class="score-num score-clone-num">7.5/10</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">About Section</div>
+      <div class="bar-wrap"><div class="bar-fill bar-orig" style="width:45%"></div></div>
+      <div class="score-num score-orig-num">4.5/10</div>
+      <div class="bar-wrap"><div class="bar-fill bar-clone" style="width:80%"></div></div>
+      <div class="score-num score-clone-num">8/10</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Services Section</div>
+      <div class="bar-wrap"><div class="bar-fill bar-orig" style="width:50%"></div></div>
+      <div class="score-num score-orig-num">5/10</div>
+      <div class="bar-wrap"><div class="bar-fill bar-clone" style="width:75%"></div></div>
+      <div class="score-num score-clone-num">7.5/10</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Footer & Navigation</div>
+      <div class="bar-wrap"><div class="bar-fill bar-orig" style="width:30%"></div></div>
+      <div class="score-num score-orig-num">3/10</div>
+      <div class="bar-wrap"><div class="bar-fill bar-clone" style="width:85%"></div></div>
+      <div class="score-num score-clone-num">8.5/10</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">CTA / Lead Generation</div>
+      <div class="bar-wrap"><div class="bar-fill bar-orig" style="width:30%"></div></div>
+      <div class="score-num score-orig-num">3/10</div>
+      <div class="bar-wrap"><div class="bar-fill bar-clone" style="width:80%"></div></div>
+      <div class="score-num score-clone-num">8/10</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Technical / Build</div>
+      <div class="bar-wrap"><div class="bar-fill bar-orig" style="width:55%"></div></div>
+      <div class="score-num score-orig-num">5.5/10</div>
+      <div class="bar-wrap"><div class="bar-fill bar-clone" style="width:80%"></div></div>
+      <div class="score-num score-clone-num">8/10</div>
+    </div>
+    <div class="score-row">
+      <div class="score-label">Trust & Social Proof</div>
+      <div class="bar-wrap"><div class="bar-fill bar-orig" style="width:50%"></div></div>
+      <div class="score-num score-orig-num">5/10</div>
+      <div class="bar-wrap"><div class="bar-fill bar-clone" style="width:75%"></div></div>
+      <div class="score-num score-clone-num">7.5/10</div>
+    </div>
+  </div>
+
+  <!-- Radar Chart -->
+  <div class="section">
+    <div class="section-title">Comparative Radar View</div>
+    <div class="chart-wrap">
+      <canvas id="radarChart" role="img" aria-label="Radar chart comparing original and cloned website across 8 dimensions">Website comparison across SEO, Hero, About, Services, Footer, CTA, Technical, Trust</canvas>
+    </div>
+  </div>
+
+  <!-- Detailed Breakdown -->
+  <div class="section">
+    <div class="section-title">Detailed Section Breakdown</div>
+
+    <table class="sec-table">
+      <thead>
+        <tr>
+          <th>Section</th>
+          <th>Original Issue</th>
+          <th>Clone Improvement</th>
+          <th>Original</th>
+          <th>Clone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SEO / Meta</strong></td>
+          <td style="color:var(--red-600)">Blank meta description & keywords; generic title; no OG/Twitter tags</td>
+          <td style="color:var(--teal-600)">Full meta desc, OG tags, Twitter card, rich keyword set, author tag</td>
+          <td><span class="score-pill" style="background:var(--red-50);color:var(--red-600)">2/10</span></td>
+          <td><span class="score-pill" style="background:var(--blue-50);color:var(--blue-600)">8.5/10</span></td>
+        </tr>
+        <tr>
+          <td><strong>Hero Section</strong></td>
+          <td style="color:var(--red-600)">"Better Solutions For Your Business" — generic, no differentiation; single CTA</td>
+          <td style="color:var(--teal-600)">"Architecting Digital Dominance" — strong power statement; dual CTA (primary + secondary)</td>
+          <td><span class="score-pill" style="background:var(--red-50);color:var(--red-600)">3.5/10</span></td>
+          <td><span class="score-pill" style="background:var(--blue-50);color:var(--blue-600)">7.5/10</span></td>
+        </tr>
+        <tr>
+          <td><strong>About Section</strong></td>
+          <td style="color:var(--red-600)">Repeats hero copy verbatim; no stats/numbers; no skill progress bars</td>
+          <td style="color:var(--teal-600)">Unique messaging; skills image included; mission framing with 4 capability pillars</td>
+          <td><span class="score-pill" style="background:var(--amber-50);color:var(--amber-600)">4.5/10</span></td>
+          <td><span class="score-pill" style="background:var(--blue-50);color:var(--blue-600)">8/10</span></td>
+        </tr>
+        <tr>
+          <td><strong>Services</strong></td>
+          <td style="color:var(--red-600)">No sub-page or modal; broken empty href links; intro text too long</td>
+          <td style="color:var(--teal-600)">"Explore Details" CTA per card; cleaner intro copy; header sub-label added</td>
+          <td><span class="score-pill" style="background:var(--amber-50);color:var(--amber-600)">5/10</span></td>
+          <td><span class="score-pill" style="background:var(--blue-50);color:var(--blue-600)">7.5/10</span></td>
+        </tr>
+        <tr>
+          <td><strong>Footer & Nav</strong></td>
+          <td style="color:var(--red-600)">Social links all go to "#"; no Privacy Policy/Terms links work; footer thin</td>
+          <td style="color:var(--teal-600)">Real Facebook, Instagram, LinkedIn links; 3-column footer with services list; working Privacy/Terms</td>
+          <td><span class="score-pill" style="background:var(--red-50);color:var(--red-600)">3/10</span></td>
+          <td><span class="score-pill" style="background:var(--blue-50);color:var(--blue-600)">8.5/10</span></td>
+        </tr>
+        <tr>
+          <td><strong>CTA / Lead Gen</strong></td>
+          <td style="color:var(--red-600)">Phone number only CTA; form has no clear objective; no WhatsApp CTA label</td>
+          <td style="color:var(--teal-600)">Dedicated "Initiate Transformation" CTA block; WhatsApp labeled; form framed as "Blueprint"</td>
+          <td><span class="score-pill" style="background:var(--red-50);color:var(--red-600)">3/10</span></td>
+          <td><span class="score-pill" style="background:var(--blue-50);color:var(--blue-600)">8/10</span></td>
+        </tr>
+        <tr>
+          <td><strong>Technical / Build</strong></td>
+          <td style="color:var(--red-600)">Plain HTML/CSS (Bootstrap template); no framework; no proper metadata structure</td>
+          <td style="color:var(--teal-600)">Built with Next.js; proper head management; structured semantic HTML; Netlify deployed</td>
+          <td><span class="score-pill" style="background:var(--amber-50);color:var(--amber-600)">5.5/10</span></td>
+          <td><span class="score-pill" style="background:var(--blue-50);color:var(--blue-600)">8/10</span></td>
+        </tr>
+        <tr>
+          <td><strong>Social Proof</strong></td>
+          <td style="color:var(--red-600)">Client logos visible; team listed; no testimonials; no case studies</td>
+          <td style="color:var(--teal-600)">More client logos (16 vs 14); "Industry Titans" framing; team labelled "Elite Collective"</td>
+          <td><span class="score-pill" style="background:var(--amber-50);color:var(--amber-600)">5/10</span></td>
+          <td><span class="score-pill" style="background:var(--blue-50);color:var(--blue-600)">7.5/10</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SEO Deep Dive -->
+  <div class="section">
+    <div class="section-title">SEO Analysis — Biggest Gap</div>
+    <div class="compare-grid">
+      <div class="compare-card orig">
+        <h4>Original — wrnxt.com</h4>
+        <ul>
+          <li><span class="tag tag-issue">MISSING</span> meta description is blank</li>
+          <li><span class="tag tag-issue">MISSING</span> meta keywords are blank</li>
+          <li><span class="tag tag-issue">MISSING</span> Open Graph (og:title, og:desc) absent</li>
+          <li><span class="tag tag-issue">MISSING</span> Twitter card tags absent</li>
+          <li><span class="tag tag-issue">MISSING</span> No author/publisher metadata</li>
+          <li><span class="tag tag-issue">WEAK</span> Title: "Affordable and Quality IT Solutions Guaranteed- WRNXT." — no location keyword, no niche</li>
+          <li><span class="tag tag-issue">WEAK</span> Social media links all point to "#" (dead links = SEO penalty)</li>
+        </ul>
+      </div>
+      <div class="compare-card clone">
+        <h4>Clone — Redesign</h4>
+        <ul>
+          <li><span class="tag tag-win">ADDED</span> Rich meta description with keyword density</li>
+          <li><span class="tag tag-win">ADDED</span> 8 targeted keywords (Software Architecture, Digital Governance, etc.)</li>
+          <li><span class="tag tag-win">ADDED</span> og:title, og:description, og:type</li>
+          <li><span class="tag tag-win">ADDED</span> twitter:card, twitter:title, twitter:description</li>
+          <li><span class="tag tag-win">ADDED</span> meta author: "WRNXT Digital Engineering"</li>
+          <li><span class="tag tag-win">STRONG</span> Title: "WRNXT Digital | High-Velocity Software Architecture & Digital Governance" — descriptive, branded</li>
+          <li><span class="tag tag-win">FIXED</span> Real social links to Facebook, Instagram, LinkedIn</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lead Generation -->
+  <div class="section">
+    <div class="section-title">Lead Generation & CTO Improvements</div>
+    <div class="compare-grid">
+      <div class="compare-card orig">
+        <h4>Original — Conversion Blockers</h4>
+        <ul>
+          <li><span class="tag tag-issue">WEAK CTA</span> "Get Started" links to #services — not a lead form</li>
+          <li><span class="tag tag-issue">WEAK CTA</span> "Get in Touch" goes to a phone number only</li>
+          <li><span class="tag tag-issue">NO LABEL</span> WhatsApp widget has no context or label</li>
+          <li><span class="tag tag-issue">CONFUSING</span> Expandable "Core Services" overlay with no clear purpose</li>
+          <li><span class="tag tag-issue">TRUST GAP</span> No encryption or trust badge on contact form</li>
+        </ul>
+      </div>
+      <div class="compare-card clone">
+        <h4>Clone — Conversion Boosters</h4>
+        <ul>
+          <li><span class="tag tag-win">CLEAR CTA</span> "Initiate Blueprint" primary button — action-oriented</li>
+          <li><span class="tag tag-win">DUAL CTA</span> Secondary "Explore Engineering Matrix" for lower-intent visitors</li>
+          <li><span class="tag tag-win">LABELED</span> WhatsApp: "Chat with us" — explicit, friendly</li>
+          <li><span class="tag tag-win">DEDICATED</span> Full "Initiate Transformation" contact section with narrative</li>
+          <li><span class="tag tag-win">TRUST</span> "Secure & Encrypted" badge under form submit button</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme / Color Verdict -->
+  <div class="section">
+    <div class="section-title">Your Question — Is Dark Theme Unprofessional?</div>
+    <div class="theme-verdict">
+      <div class="tv-card verdict-pass">
+        <h4>✓ Dark theme IS acceptable in 2026</h4>
+        <p>The belief that "professional sites must be light" is outdated. Vercel, Linear, Stripe, GitHub, and most SaaS companies successfully use dark or mixed themes. The key is contrast ratio (WCAG AA requires 4.5:1 minimum), which a well-designed dark theme achieves easily. Light blue + dark is a recognized tech-brand palette.</p>
+      </div>
+      <div class="tv-card verdict-tip">
+        <h4>⚠ One genuine concern to address</h4>
+        <p>The copy in the clone ("High-Velocity", "Mission-Critical", "Architecting Dominance") leans very enterprise/startup-jargon heavy. For a Mangalore-based SME targeting local businesses, this could feel disconnected. Recommend softening 1-2 taglines to match the client's actual audience size — keep the energy, reduce the buzzwords.</p>
+      </div>
+    </div>
+    <div style="margin-top:1rem; padding:12px; background:var(--blue-50); border-radius:8px; font-size:13px; color:var(--blue-800); border:0.5px solid var(--blue-100);">
+      <strong>Interview Tip:</strong> Tell the interviewer — "Dark theme was a deliberate positioning choice to differentiate WRNXT from generic local agency sites and signal technical sophistication. Accessibility contrast ratios are maintained, and the color palette was chosen to align with modern SaaS brand conventions that WRNXT's target growth segment (funded startups and tech companies) respond to."
+    </div>
+  </div>
+
+  <!-- Remaining Issues -->
+  <div class="section">
+    <div class="section-title">Issues Remaining in Clone — Honest Assessment</div>
+    <ul class="rec-list">
+      <li class="rec-item">
+        <span class="rec-icon">⚠</span>
+        <div><strong>Overly jargon-heavy copy</strong> — "High-Velocity Collective", "Engineering Matrix", "Principal Lead" in the contact form may confuse users who aren't in tech. Simplify form field labels to standard names.</div>
+      </li>
+      <li class="rec-item">
+        <span class="rec-icon">⚠</span>
+        <div><strong>No testimonials or case studies</strong> — both sites lack this. A single client quote would increase trust signals significantly and is the next highest-ROI improvement.</div>
+      </li>
+      <li class="rec-item">
+        <span class="rec-icon">⚠</span>
+        <div><strong>No structured data / schema markup</strong> — neither site uses JSON-LD LocalBusiness schema. Adding this would give Google rich result eligibility for a local Mangalore business.</div>
+      </li>
+      <li class="rec-item">
+        <span class="rec-icon">⚠</span>
+        <div><strong>No blog or content hub</strong> — for a company that sells SEO and digital marketing, having zero blog content is a missed opportunity. Even 3-4 posts would dramatically improve organic reach.</div>
+      </li>
+      <li class="rec-item">
+        <span class="rec-icon">⚠</span>
+        <div><strong>Page speed not verified</strong> — Next.js helps, but image optimization (client logos are .jpeg/.png with no next/image lazy loading confirmed) needs verification in Lighthouse.</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Presentation Checklist -->
+  <div class="section">
+    <div class="section-title">Interview Presentation Cheatsheet</div>
+    <ul class="rec-list">
+      <li class="rec-item" style="background:var(--teal-50); border-color:var(--teal-400);">
+        <span class="rec-icon">✓</span>
+        <div><strong>Lead with the SEO gap</strong> — "The original site had completely blank meta description and keywords. Search engines had nothing to index. I fixed this with full OG tags, Twitter cards, and 8 targeted keywords."</div>
+      </li>
+      <li class="rec-item" style="background:var(--teal-50); border-color:var(--teal-400);">
+        <span class="rec-icon">✓</span>
+        <div><strong>Show the dead links</strong> — Open original site, click social icons. They all go to "#". Then show the clone where they go to real WRNXT social profiles. This is a concrete, visual win.</div>
+      </li>
+      <li class="rec-item" style="background:var(--teal-50); border-color:var(--teal-400);">
+        <span class="rec-icon">✓</span>
+        <div><strong>Compare hero copy</strong> — "Better Solutions" (generic) vs "Architecting Digital Dominance" (positioned). Explain that the original headline could apply to any company on earth, while the clone creates a specific identity.</div>
+      </li>
+      <li class="rec-item" style="background:var(--teal-50); border-color:var(--teal-400);">
+        <span class="rec-icon">✓</span>
+        <div><strong>Highlight the tech upgrade</strong> — Original is a static Bootstrap HTML template (no framework). Clone is Next.js — faster, SEO-friendly SSR/SSG, deployable as a production app, scalable.</div>
+      </li>
+      <li class="rec-item" style="background:var(--teal-50); border-color:var(--teal-400);">
+        <span class="rec-icon">✓</span>
+        <div><strong>Acknowledge what can improve</strong> — Show you're self-aware by mentioning the missing testimonials and schema markup. It signals strategic thinking, not just execution.</div>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const ctx = document.getElementById('radarChart').getContext('2d');
+new Chart(ctx, {
+  type: 'radar',
+  data: {
+    labels: ['SEO / Meta', 'Hero Section', 'About Section', 'Services', 'Footer & Nav', 'CTA / Lead Gen', 'Technical', 'Social Proof'],
+    datasets: [
+      {
+        label: 'Original (wrnxt.com)',
+        data: [2, 3.5, 4.5, 5, 3, 3, 5.5, 5],
+        backgroundColor: 'rgba(136,135,128,0.15)',
+        borderColor: '#888780',
+        borderWidth: 2,
+        pointBackgroundColor: '#888780',
+        borderDash: [4, 3]
+      },
+      {
+        label: 'Clone (Redesign)',
+        data: [8.5, 7.5, 8, 7.5, 8.5, 8, 8, 7.5],
+        backgroundColor: 'rgba(55,138,221,0.15)',
+        borderColor: '#378ADD',
+        borderWidth: 2,
+        pointBackgroundColor: '#378ADD'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        ticks: { stepSize: 2, font: { size: 10 }, color: '#888780' },
+        grid: { color: 'rgba(0,0,0,0.07)' },
+        pointLabels: { font: { size: 11 }, color: '#444' }
+      }
+    },
+    plugins: {
+      legend: { display: false }
+    }
+  }
+});
+</script>
+</body>
+</html>

@@ -1,12 +1,30 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
+import Image from "next/image";
+
+const CLIENTS = [
+  { name: "Prabhu's Pure Veg Restaurant", id: 1, ext: "png" },
+  { name: "Sharada Academy of Professional Studies", id: 2, ext: "png" },
+  { name: "Shivalli Spandana", id: 3, ext: "png" },
+  { name: "Ather Kanchana", id: 4, ext: "png" },
+  { name: "Drona School of Design", id: 5, ext: "png" },
+  { name: "ISKCON Mangalore", id: 6, ext: "png" },
+  { name: "ZICA", id: 7, ext: "jpeg" },
+  { name: "One More Rep", id: 8, ext: "jpeg" },
+  { name: "The Artist by Nichola Dafney", id: 9, ext: "png" },
+  { name: "Veera's Dudes & Dolls Style Studio", id: 10, ext: "png" },
+  { name: "Sheethal Garden Ujire", id: 11, ext: "png" },
+  { name: "Nine Jewels", id: 12, ext: "jpeg" },
+  { name: "Nforce Infrastructure Pvt. Ltd.", id: 13, ext: "png" },
+  { name: "Global Design", id: 14, ext: "png" },
+  { name: "Client 15", id: 15, ext: "jpeg" },
+  { name: "Client 16", id: 16, ext: "png" },
+];
 
 const SERVICES = [
   {
     title: "Online Reputation Management",
-    description: "We safeguard your brand's reputation through proactive monitoring, review management, and brand protection strategies.",
+    description: "We protect and enhance your brand's reputation through active monitoring and positive brand management.",
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -210,16 +228,16 @@ export default function Home() {
             <div className="text-left space-y-10">
               <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white dark:bg-zinc-900 shadow-2xl shadow-primary/5 border border-primary/10 transition-all hover:border-primary/30">
                 <span className="flex h-3 w-3 rounded-full bg-primary animate-ping"></span>
-                <span className="text-xs font-black uppercase tracking-widest text-zinc-600 dark:text-zinc-400">Elite Digital Engineering</span>
+                <span className="text-xs font-black uppercase tracking-widest text-zinc-600 dark:text-zinc-400">Digital Solutions Partner</span>
               </div>
               
-              <p className="text-primary font-black uppercase tracking-[0.4em] text-xs mb-6">Next-Gen Engineering Governance</p>
+              <p className="text-primary font-black uppercase tracking-[0.4em] text-xs mb-6">Innovative Digital Growth</p>
               <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-zinc-900 dark:text-white">
-                Architecting <br /> <span className="text-primary">Digital</span> <br /> Dominance.
+                Building <br /> <span className="text-primary">Digital</span> <br /> Success.
               </h1>
               
               <p className="max-w-xl text-xl md:text-2xl text-zinc-500 dark:text-zinc-400 leading-relaxed font-bold">
-                We engineer mission-critical ecosystems for ambitious brands that demand absolute performance and architectural perfection.
+                We create powerful digital solutions for brands that want to grow, scale, and lead in their industry.
               </p>
               
               <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
@@ -227,14 +245,14 @@ export default function Home() {
                   href="#contact"
                   className="w-full sm:w-auto px-12 py-6 bg-primary text-white rounded-[2rem] font-black text-xl shadow-[0_20px_50px_rgba(8,145,178,0.3)] hover:shadow-[0_20px_50px_rgba(8,145,178,0.5)] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3"
                 >
-                  Initiate Blueprint
+                  Get a Proposal
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                 </Link>
                 <button
                   onClick={() => setActiveService(0)}
                   className="w-full sm:w-auto px-12 py-6 bg-white dark:bg-zinc-900 text-foreground border border-zinc-200 dark:border-zinc-800 rounded-[2rem] font-black text-xl shadow-xl hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all flex items-center justify-center gap-3"
                 >
-                  Explore Engineering Matrix
+                  Explore Services
                 </button>
               </div>
             </div>
@@ -258,18 +276,14 @@ export default function Home() {
         </div>
         <div className="relative">
           <div className="flex animate-scroll whitespace-nowrap gap-12 md:gap-24">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map((i, idx) => (
+            {[...CLIENTS, ...CLIENTS].map((client, idx) => (
               <div key={idx} className="flex-shrink-0 flex items-center justify-center p-4">
-                <img 
-                  src={`https://wrnxt.com/assets/img/clients/client-${i}.${i === 7 || i === 8 || i === 12 || i === 15 ? 'jpeg' : 'png'}`} 
-                  alt="Client" 
+                <Image 
+                  src={`https://wrnxt.com/assets/img/clients/client-${client.id}.${client.ext}`} 
+                  alt={client.name} 
+                  width={200}
+                  height={100}
                   className="h-16 md:h-24 w-auto object-contain filter brightness-100 contrast-125 dark:brightness-200 transition-all duration-500 hover:scale-110"
-                  onError={(e) => {
-                     const target = e.target as HTMLImageElement;
-                     if (target.src.endsWith('.png')) target.src = target.src.replace('.png', '.jpeg');
-                     else if (target.src.endsWith('.jpeg')) target.src = target.src.replace('.jpeg', '.jpg');
-                     else target.style.display = 'none';
-                  }}
                 />
               </div>
             ))}
@@ -365,9 +379,9 @@ export default function Home() {
       <section id="team" className="py-24 bg-zinc-50 dark:bg-zinc-950/50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-20">
           <div className="text-center">
-            <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6">High-Velocity <span className="text-primary">Collective</span></h2>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6">Our Expert <span className="text-primary">Team</span></h2>
             <p className="max-w-2xl mx-auto text-xl text-zinc-500 font-bold">
-              The elite architects and technical strategists behind every mission-critical digital transformation.
+              The dedicated strategists and developers behind every digital transformation.
             </p>
           </div>
         </div>
@@ -404,12 +418,80 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Case Studies Section */}
+      <section id="cases" className="py-24 bg-white dark:bg-black">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6">Success <span className="text-primary">Stories</span></h2>
+            <p className="max-w-2xl mx-auto text-xl text-zinc-500 font-bold">
+              Real results for real businesses. See how we help our clients dominate their markets.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-12">
+            {[
+              { 
+                title: "E-Commerce Growth Engine", 
+                client: "Global Retailer", 
+                result: "+140% Sales Increase",
+                desc: "Re-engineered a legacy platform for mobile-first performance and zero-downtime scalability."
+              },
+              { 
+                title: "Digital Reputation Shield", 
+                client: "Financial Institution", 
+                result: "99% Positive Sentiment",
+                desc: "Implemented a 24/7 monitoring and response system to protect brand equity in critical markets."
+              }
+            ].map((study, i) => (
+              <div key={i} className="group relative rounded-[3.5rem] overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-primary/20 transition-all duration-500">
+                <div className="aspect-[16/9] bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center">
+                   <span className="text-primary font-black text-2xl group-hover:scale-110 transition-transform">{study.result}</span>
+                </div>
+                <div className="p-10 space-y-4">
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">{study.client}</span>
+                  <h3 className="text-2xl font-black">{study.title}</h3>
+                  <p className="text-zinc-500 font-medium">{study.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Section */}
+      <section id="blog" className="py-24 bg-zinc-50 dark:bg-zinc-950/50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+            <div className="max-w-2xl">
+              <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6">Featured <span className="text-primary">Insights</span></h2>
+              <p className="text-xl text-zinc-500 font-bold">Latest trends in digital engineering and market governance.</p>
+            </div>
+            <Link href="#" className="text-primary font-bold hover:underline">View All Articles</Link>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              "Scaling Modern Software Architecture",
+              "The Future of Digital Governance",
+              "Maximizing ROI with Technical SEO"
+            ].map((post, i) => (
+              <div key={i} className="bg-white dark:bg-zinc-900 p-8 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 hover:shadow-2xl transition-all group">
+                <span className="text-[9px] font-black uppercase tracking-widest text-zinc-400 mb-4 block">May 2026 • 5 min read</span>
+                <h3 className="text-xl font-black mb-6 group-hover:text-primary transition-colors">{post}</h3>
+                <Link href="#" className="inline-flex items-center gap-2 text-primary font-bold text-sm">
+                  Read More
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section id="contact" className="py-24 bg-zinc-50 dark:bg-[#050505]">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter">Initiate <span className="text-primary text-glow">Transformation</span></h2>
-            <p className="text-xl text-zinc-500 font-bold max-w-2xl mx-auto">Connect with our engineering collective to architect your digital blueprint.</p>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter">Get in <span className="text-primary text-glow">Touch</span></h2>
+            <p className="text-xl text-zinc-500 font-bold max-w-2xl mx-auto">Connect with our team to discuss your next big project.</p>
           </div>
 
           <div className="bg-white dark:bg-zinc-900 rounded-[3.5rem] shadow-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 grid lg:grid-cols-2">
@@ -453,33 +535,33 @@ export default function Home() {
                 <input type="hidden" name="form-name" value="contact-blueprint" />
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Principal Lead</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Full Name</label>
                     <input
                       name="name"
                       type="text"
                       required
-                      placeholder="Full Name"
+                      placeholder="John Doe"
                       className="w-full px-8 py-5 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-700 rounded-2xl focus:ring-2 focus:ring-primary outline-none transition-all font-bold text-lg"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Corporate Auth</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Email Address</label>
                     <input
                       name="email"
                       type="email"
                       required
-                      placeholder="corporate@email.com"
+                      placeholder="john@example.com"
                       className="w-full px-8 py-5 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-700 rounded-2xl focus:ring-2 focus:ring-primary outline-none transition-all font-bold text-lg"
                     />
                   </div>
                 </div>
                 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Project Vision (Blueprint)</label>
+                  <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Project Details</label>
                   <textarea
                     name="message"
                     required
-                    placeholder="Briefly describe your vision and architectural requirements..."
+                    placeholder="Tell us about your project requirements..."
                     rows={4}
                     className="w-full px-8 py-5 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-700 rounded-[2.5rem] focus:ring-2 focus:ring-primary outline-none transition-all font-bold text-lg resize-none"
                   ></textarea>
@@ -489,7 +571,7 @@ export default function Home() {
                   type="submit"
                   className="w-full py-7 bg-primary text-white rounded-[2.5rem] font-black text-2xl shadow-[0_20px_60px_rgba(8,145,178,0.3)] hover:shadow-[0_20px_60px_rgba(8,145,178,0.5)] hover:-translate-y-1 active:scale-[0.98] transition-all flex items-center justify-center gap-4"
                 >
-                  Submit Blueprint
+                  Send Message
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                 </button>
                 

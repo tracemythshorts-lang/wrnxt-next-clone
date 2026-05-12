@@ -54,6 +54,51 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "WRNXT Digital",
+              "image": "https://wrnxt.com/assets/img/hero-img.png",
+              "@id": "https://www.wrnxt.com",
+              "url": "https://www.wrnxt.com",
+              "telephone": "+918123455500",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "2-32/20, GaneshNagar, JeppinaMogaru",
+                "addressLocality": "Mangalore",
+                "addressRegion": "Karnataka",
+                "postalCode": "575009",
+                "addressCountry": "IN"
+              },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 12.851146,
+                "longitude": 74.867945
+              },
+              "openingHoursSpecification": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday"
+                ],
+                "opens": "09:00",
+                "closes": "18:00"
+              },
+              "sameAs": [
+                "https://www.facebook.com/wrnxt",
+                "https://www.instagram.com/wrnxt",
+                "https://www.linkedin.com/company/wrnxt"
+              ]
+            })
+          }}
+        />
       </body>
     </html>
   );
