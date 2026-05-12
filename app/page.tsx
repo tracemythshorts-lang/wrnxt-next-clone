@@ -301,20 +301,20 @@ export default function Home() {
       </section>
 
       {/* Clients Section */}
-      <section className="py-24 bg-white dark:bg-black border-y border-zinc-100 dark:border-zinc-900 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-16 text-center">
+      <section className="py-12 bg-white dark:bg-black border-y border-zinc-100 dark:border-zinc-900 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-8 text-center">
           <p className="text-xs font-black uppercase tracking-[0.3em] text-primary mb-4">Strategic Partners</p>
           <h2 className="text-4xl lg:text-5xl font-black text-zinc-900 dark:text-white">Trusted by Industry Titans</h2>
         </div>
         <div className="relative">
           <div className="flex animate-scroll whitespace-nowrap gap-12 md:gap-24">
             {[...CLIENTS, ...CLIENTS].map((client, idx) => (
-              <div key={idx} className="flex-shrink-0 flex items-center justify-center p-6 group/logo">
-                <div className="relative p-8 bg-zinc-900/0 hover:bg-zinc-900/50 rounded-3xl transition-all duration-500 hover:shadow-[0_0_50px_rgba(8,145,178,0.1)] border border-transparent hover:border-white/5">
+              <div key={idx} className="flex-shrink-0 flex items-center justify-center p-4 group/logo">
+                <div className="relative p-6 bg-zinc-900/0 hover:bg-zinc-900/50 rounded-3xl transition-all duration-500 hover:shadow-[0_0_50px_rgba(8,145,178,0.1)] border border-transparent hover:border-white/5">
                   <img 
                     src={`https://wrnxt.com/assets/img/clients/client-${client.id}.${client.ext}`} 
                     alt={client.name} 
-                    className="h-16 md:h-24 w-auto object-contain filter grayscale group-hover/logo:grayscale-0 brightness-100 contrast-125 dark:brightness-200 transition-all duration-500 group-hover/logo:scale-110"
+                    className="h-24 md:h-32 w-auto object-contain filter grayscale group-hover/logo:grayscale-0 brightness-100 contrast-125 dark:brightness-200 transition-all duration-500 group-hover/logo:scale-110"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none';
                     }}
