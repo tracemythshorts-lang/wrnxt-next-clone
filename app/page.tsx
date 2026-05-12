@@ -5,22 +5,20 @@ import Image from "next/image";
 import Link from "next/link";
 
 const CLIENTS = [
-  { name: "Prabhu's Pure Veg Restaurant", id: 1, ext: "png" },
-  { name: "Sharada Academy of Professional Studies", id: 2, ext: "png" },
-  { name: "Shivalli Spandana", id: 3, ext: "png" },
-  { name: "Ather Kanchana", id: 4, ext: "png" },
-  { name: "Drona School of Design", id: 5, ext: "png" },
-  { name: "ISKCON Mangalore", id: 6, ext: "png" },
-  { name: "ZICA", id: 7, ext: "jpeg" },
-  { name: "One More Rep", id: 8, ext: "jpeg" },
-  { name: "The Artist by Nichola Dafney", id: 9, ext: "png" },
-  { name: "Veera's Dudes & Dolls Style Studio", id: 10, ext: "png" },
-  { name: "Sheethal Garden Ujire", id: 11, ext: "png" },
-  { name: "Nine Jewels", id: 12, ext: "jpeg" },
-  { name: "Nforce Infrastructure Pvt. Ltd.", id: 13, ext: "png" },
-  { name: "Global Design", id: 14, ext: "png" },
-  { name: "Client 15", id: 15, ext: "jpeg" },
-  { name: "Client 16", id: 16, ext: "png" },
+  { name: "Nforce Infrastructure Pvt. Ltd.", id: 1, ext: "png" },
+  { name: "Prabhu's Pure Veg Restaurant", id: 2, ext: "png" },
+  { name: "Sharada Academy", id: 3, ext: "png" },
+  { name: "Shivalli Spandana", id: 4, ext: "jpeg" },
+  { name: "Ather Kanchana", id: 5, ext: "png" },
+  { name: "Drona School of Design", id: 6, ext: "png" },
+  { name: "Srila Prabhupada's ISKCON Mangalore", id: 7, ext: "jpeg" },
+  { name: "ZICA (Zee Institute of Creative Art)", id: 9, ext: "png" },
+  { name: "One More Rep Strength . MMA . Fitness", id: 10, ext: "png" },
+  { name: "The Artist by Nichola Dafney", id: 11, ext: "png" },
+  { name: "Veera's Dudes & Dolls Style Studio", id: 12, ext: "jpeg" },
+  { name: "Sheethal Garden Ujire", id: 13, ext: "jpeg" },
+  { name: "Nine Jewels", id: 14, ext: "jpeg" },
+  { name: "Sharp Systems", id: 15, ext: "jpeg" },
 ];
 
 const SERVICES = [
@@ -81,25 +79,45 @@ const TEAM = [
 export default function Home() {
   const [activeService, setActiveService] = React.useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = React.useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = React.useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    
+    try {
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+      setIsSubmitted(true);
+    } catch (error) {
+      alert("Submission failed. Please try again.");
+    }
+  };
 
   const SERVICE_CATEGORIES = {
     Creation: [
-      "Next-Gen Software Architecture (Web)", "Omnichannel Mobile Ecosystems", 
-      "Full-Stack Enterprise Engineering", "High-Performance E-Commerce Engines", 
-      "GMB Identity Architecture", "Social Infrastructure Development", 
-      "Cinematic Brand Storytelling (Video)", "Advanced VFX & Motion Engineering", 
-      "Technical Content Strategy", "Scalable Design Systems"
+      { name: "Next-Gen Software Architecture", desc: "Building scalable, high-performance distributed systems using modern frameworks." },
+      { name: "Omnichannel Mobile Ecosystems", desc: "Native and cross-platform mobile apps engineered for seamless user engagement." },
+      { name: "Full-Stack Enterprise Engineering", desc: "End-to-end development of complex business tools and internal platforms." },
+      { name: "High-Performance E-Commerce", desc: "Conversion-optimized digital storefronts with robust payment integrations." },
+      { name: "Cinematic Brand Storytelling", desc: "High-end video production and VFX to elevate your brand's visual identity." },
+      { name: "Scalable Design Systems", desc: "Consistent, reusable UI/UX frameworks for long-term product evolution." }
     ],
     Maintenance: [
-      "Zero-Downtime GMB Governance", "Social Asset Performance Management", 
-      "SLA-Driven Web App Support", "Mobile Infrastructure Modernization", 
-      "High-Availability DevOps & Maintenance", "E-Commerce Reliability Engineering"
+      { name: "SLA-Driven App Support", desc: "Guaranteed uptime and rapid response for mission-critical digital assets." },
+      { name: "Infrastructure Modernization", desc: "Updating legacy stacks to modern cloud-native environments for efficiency." },
+      { name: "High-Availability DevOps", desc: "Automated deployment pipelines and proactive server health monitoring." },
+      { name: "Reliability Engineering", desc: "Continuous testing and optimization to ensure absolute system stability." }
     ],
     Marketing: [
-      "Hyper-Scale Paid Acquisition", "Search Dominance & Technical SEO", 
-      "Performance-Engineered PPC", "Predictive Keyword Ranking Systems", 
-      "High-Authority Backlink Infrastructure", "Data-Driven Growth Distribution", 
-      "Viral-Engineered Video Assets", "Algorithmic Organic Governance"
+      { name: "Hyper-Scale Paid Acquisition", desc: "Data-driven ad campaigns designed for maximum ROI and market reach." },
+      { name: "Search Dominance & SEO", desc: "Technical SEO strategies to secure top-tier organic rankings for key terms." },
+      { name: "Predictive Keyword Systems", desc: "Advanced analytics to identify and capture emerging search trends." },
+      { name: "Algorithmic Social Governance", desc: "Strategic social media management focused on community growth and brand trust." }
     ]
   };
 
@@ -190,7 +208,7 @@ export default function Home() {
                           key={i}
                           href="#contact"
                           onClick={() => {setActiveService(null); setSelectedCategory(null);}}
-                          className="group relative p-8 bg-white dark:bg-[#111] rounded-[2.5rem] border border-zinc-200 dark:border-zinc-800 hover:border-primary hover:shadow-2xl transition-all flex flex-col justify-between h-44 overflow-hidden"
+                          className="group relative p-8 bg-white dark:bg-[#111] rounded-[2.5rem] border border-zinc-200 dark:border-zinc-800 hover:border-primary hover:shadow-2xl transition-all flex flex-col justify-between h-auto min-h-[11rem] overflow-hidden"
                         >
                           <div className="relative space-y-3">
                              <div className="flex items-center justify-between">
@@ -200,9 +218,10 @@ export default function Home() {
                                 </div>
                                 <svg className="w-5 h-5 text-zinc-300 dark:text-zinc-700 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                              </div>
-                             <span className="block text-lg font-black leading-tight text-zinc-900 dark:text-white group-hover:text-primary transition-colors">{item}</span>
+                             <span className="block text-lg font-black leading-tight text-zinc-900 dark:text-white group-hover:text-primary transition-colors">{item.name}</span>
+                             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium leading-relaxed">{item.desc}</p>
                           </div>
-                          <div className="relative flex items-center gap-2">
+                          <div className="relative flex items-center gap-2 mt-4">
                              <span className="text-[8px] font-black uppercase tracking-widest bg-zinc-100 dark:bg-zinc-800 px-3 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 dark:text-zinc-400">Elite Architecture</span>
                              <div className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700"></div>
                              <span className="text-[8px] font-bold text-primary">⚡ High Impact</span>
@@ -431,18 +450,31 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              "Scaling Modern Software Architecture",
-              "The Future of Digital Governance",
-              "Maximizing ROI with Technical SEO"
+              { 
+                title: "The Strategic Impact of Reputation Management", 
+                desc: "How protecting your digital brand identity directly influences conversion rates and customer trust in 2026.",
+                href: "/blog/reputation-management"
+              },
+              { 
+                title: "Next.js 16: The New Standard for Performance", 
+                desc: "Exploring why high-growth companies are migrating to modern server-side rendering architectures.",
+                href: "/blog/modern-web-architecture"
+              },
+              { 
+                title: "Driving ROI with Algorithmic Marketing", 
+                desc: "Leveraging predictive analytics and technical SEO to secure market dominance in competitive niches.",
+                href: "/blog/marketing-roi"
+              }
             ].map((post, i) => (
-              <div key={i} className="bg-white dark:bg-zinc-900 p-8 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 hover:shadow-2xl transition-all group">
+              <Link href={post.href} key={i} className="bg-white dark:bg-zinc-900 p-8 rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 hover:shadow-2xl transition-all group block">
                 <span className="text-[9px] font-black uppercase tracking-widest text-zinc-400 mb-4 block">May 2026 • 5 min read</span>
-                <h3 className="text-xl font-black mb-6 group-hover:text-primary transition-colors">{post}</h3>
-                <Link href="#" className="inline-flex items-center gap-2 text-primary font-bold text-sm">
+                <h3 className="text-xl font-black mb-6 group-hover:text-primary transition-colors leading-tight">{post.title}</h3>
+                <p className="text-sm text-zinc-500 mb-6 font-medium">{post.desc}</p>
+                <div className="inline-flex items-center gap-2 text-primary font-bold text-sm">
                   Read More
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                </Link>
-              </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -489,60 +521,78 @@ export default function Home() {
 
             {/* Form Area */}
             <div className="p-10 lg:p-16 flex flex-col justify-center">
-              <form 
-                name="contact-blueprint" 
-                method="POST" 
-                className="space-y-8"
-              >
-                <input type="hidden" name="form-name" value="contact-blueprint" />
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Full Name</label>
-                    <input
-                      name="name"
-                      type="text"
-                      required
-                      placeholder="John Doe"
-                      className="w-full px-8 py-5 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-700 rounded-2xl focus:ring-2 focus:ring-primary outline-none transition-all font-bold text-lg"
-                    />
+              {isSubmitted ? (
+                <div className="text-center space-y-6 animate-in fade-in zoom-in duration-700">
+                  <div className="w-24 h-24 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-8">
+                    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Email Address</label>
-                    <input
-                      name="email"
-                      type="email"
-                      required
-                      placeholder="john@example.com"
-                      className="w-full px-8 py-5 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-700 rounded-2xl focus:ring-2 focus:ring-primary outline-none transition-all font-bold text-lg"
-                    />
-                  </div>
+                  <h3 className="text-3xl font-black text-zinc-900 dark:text-white">Blueprint Initiated</h3>
+                  <p className="text-lg text-zinc-500 font-medium">Thank you for connecting with WRNXT. Our principal strategists will review your project details and reach out within 24 hours.</p>
+                  <button 
+                    onClick={() => setIsSubmitted(false)}
+                    className="text-primary font-bold hover:underline"
+                  >
+                    Send another message
+                  </button>
                 </div>
-                
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Project Details</label>
-                  <textarea
-                    name="message"
-                    required
-                    placeholder="Tell us about your project requirements..."
-                    rows={4}
-                    className="w-full px-8 py-5 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-700 rounded-[2.5rem] focus:ring-2 focus:ring-primary outline-none transition-all font-bold text-lg resize-none"
-                  ></textarea>
-                </div>
-                
-                <button
-                  type="submit"
-                  className="w-full py-7 bg-primary text-white rounded-[2.5rem] font-black text-2xl shadow-[0_20px_60px_rgba(8,145,178,0.3)] hover:shadow-[0_20px_60px_rgba(8,145,178,0.5)] hover:-translate-y-1 active:scale-[0.98] transition-all flex items-center justify-center gap-4"
+              ) : (
+                <form 
+                  name="contact-blueprint" 
+                  method="POST" 
+                  data-netlify="true"
+                  onSubmit={handleSubmit}
+                  className="space-y-8"
                 >
-                  Send Message
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                </button>
-                
-                <div className="flex items-center justify-center gap-4 text-zinc-400">
-                   <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800"></div>
-                   <p className="text-[9px] font-black uppercase tracking-[0.5em]">Secure & Encrypted</p>
-                   <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800"></div>
-                </div>
-              </form>
+                  <input type="hidden" name="form-name" value="contact-blueprint" />
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Full Name</label>
+                      <input
+                        name="name"
+                        type="text"
+                        required
+                        placeholder="John Doe"
+                        className="w-full px-8 py-5 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-700 rounded-2xl focus:ring-2 focus:ring-primary outline-none transition-all font-bold text-lg"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Email Address</label>
+                      <input
+                        name="email"
+                        type="email"
+                        required
+                        placeholder="john@example.com"
+                        className="w-full px-8 py-5 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-700 rounded-2xl focus:ring-2 focus:ring-primary outline-none transition-all font-bold text-lg"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-400 ml-2">Project Details</label>
+                    <textarea
+                      name="message"
+                      required
+                      placeholder="Tell us about your project requirements..."
+                      rows={4}
+                      className="w-full px-8 py-5 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-700 rounded-[2.5rem] focus:ring-2 focus:ring-primary outline-none transition-all font-bold text-lg resize-none"
+                    ></textarea>
+                  </div>
+                  
+                  <button
+                    type="submit"
+                    className="w-full py-7 bg-primary text-white rounded-[2.5rem] font-black text-2xl shadow-[0_20px_60px_rgba(8,145,178,0.3)] hover:shadow-[0_20px_60px_rgba(8,145,178,0.5)] hover:-translate-y-1 active:scale-[0.98] transition-all flex items-center justify-center gap-4"
+                  >
+                    Send Message
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                  </button>
+                  
+                  <div className="flex items-center justify-center gap-4 text-zinc-400">
+                     <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800"></div>
+                     <p className="text-[9px] font-black uppercase tracking-[0.5em]">Secure & Encrypted</p>
+                     <div className="h-px flex-1 bg-zinc-100 dark:bg-zinc-800"></div>
+                  </div>
+                </form>
+              )}
             </div>
           </div>
         </div>

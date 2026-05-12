@@ -25,10 +25,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
-                <span className="text-white font-bold text-xl">W</span>
-              </div>
-              <span className="text-xl font-bold tracking-tight text-white">WRNXT</span>
+              <img
+                src="https://www.wrnxt.com/assets/img/wrnxt%20Logo_1.png"
+                alt="WRNXT Logo"
+                className="h-12 w-auto brightness-0 invert"
+              />
             </Link>
             <p className="text-sm leading-relaxed">
               Leading information technology, online reputation management and digital marketing company dedicated to delivering exceptional services.

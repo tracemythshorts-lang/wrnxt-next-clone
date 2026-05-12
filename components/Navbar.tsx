@@ -44,9 +44,9 @@ export default function Navbar() {
       ].join(" ")}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2 group bg-white p-2 rounded-xl shadow-sm border border-zinc-100 transition-all hover:shadow-md">
+        <Link href="/" className="flex items-center gap-2 group transition-all">
           <img
-            src="https://wrnxt.com/assets/img/wrnxt%20Logo_1.png"
+            src="https://www.wrnxt.com/assets/img/wrnxt%20Logo_1.png"
             alt="WRNXT Logo"
             className="h-10 w-auto group-hover:scale-105 transition-transform duration-300"
           />
