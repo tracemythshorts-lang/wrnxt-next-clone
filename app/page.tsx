@@ -5,20 +5,21 @@ import Image from "next/image";
 import Link from "next/link";
 
 const CLIENTS = [
-  { name: "Nforce Infrastructure Pvt. Ltd.", id: 1, ext: "png" },
-  { name: "Prabhu's Pure Veg Restaurant", id: 2, ext: "png" },
-  { name: "Sharada Academy", id: 3, ext: "png" },
-  { name: "Shivalli Spandana", id: 4, ext: "jpeg" },
-  { name: "Ather Kanchana", id: 5, ext: "png" },
-  { name: "Drona School of Design", id: 6, ext: "png" },
-  { name: "Srila Prabhupada's ISKCON Mangalore", id: 7, ext: "jpeg" },
-  { name: "ZICA (Zee Institute of Creative Art)", id: 9, ext: "png" },
-  { name: "One More Rep Strength . MMA . Fitness", id: 10, ext: "png" },
-  { name: "The Artist by Nichola Dafney", id: 11, ext: "png" },
-  { name: "Veera's Dudes & Dolls Style Studio", id: 12, ext: "jpeg" },
-  { name: "Sheethal Garden Ujire", id: 13, ext: "jpeg" },
-  { name: "Nine Jewels", id: 14, ext: "jpeg" },
-  { name: "Sharp Systems", id: 15, ext: "jpeg" },
+  { name: "Nine Jewels", id: 1, ext: "png" },
+  { name: "The Artist", id: 2, ext: "png" },
+  { name: "Drona School of Design", id: 3, ext: "png" },
+  { name: "Sharada Academy", id: 4, ext: "png" },
+  { name: "Ather", id: 5, ext: "png" },
+  { name: "Dudes & Dolls Style Studio", id: 6, ext: "png" },
+  { name: "Kanchana", id: 7, ext: "png" },
+  { name: "Nforce Infrastructure", id: 8, ext: "png" },
+  { name: "Srila Prabhupada's ISKCON Mangalore", id: 9, ext: "png" },
+  { name: "Prabhu's Pure Veg Restaurant", id: 10, ext: "png" },
+  { name: "Shivalli Spandana", id: 11, ext: "png" },
+  { name: "One More Rep", id: 12, ext: "jpeg" },
+  { name: "ZICA", id: 13, ext: "jpeg" },
+  { name: "Veera's Dudes & Dolls Style Studio", id: 14, ext: "jpeg" },
+  { name: "Sheethal Garden Ujire", id: 15, ext: "jpeg" },
 ];
 
 const SERVICES = [
@@ -84,17 +85,21 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const formData = new FormData(form);
     
     try {
-      await fetch("/", {
+      const formData = new FormData(form);
+      const res = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData as any).toString(),
       });
-      setIsSubmitted(true);
+      if (res.ok) {
+        setIsSubmitted(true);
+      } else {
+        throw new Error("Form submission failed");
+      }
     } catch (error) {
-      alert("Submission failed. Please try again.");
+      alert("Submission failed. Please try again or email us directly at info@wrnxt.com");
     }
   };
 
@@ -238,7 +243,7 @@ export default function Home() {
       )}
 
       {/* Hero Section */}
-      <section id="hero" className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gradient-to-br from-secondary via-background to-background">
+      <section id="hero" className="relative pt-16 pb-12 lg:pt-24 lg:pb-20 overflow-hidden bg-gradient-to-br from-secondary via-background to-background">
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-0 left-1/3 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] animate-pulse"></div>
           <div className="absolute bottom-0 right-1/3 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[150px] animate-pulse delay-1000"></div>
@@ -252,26 +257,26 @@ export default function Home() {
                 <span className="text-xs font-black uppercase tracking-widest text-zinc-600 dark:text-zinc-400">Digital Solutions Partner</span>
               </div>
               
-              <p className="text-primary font-black uppercase tracking-[0.4em] text-xs mb-6">Innovative Digital Growth</p>
-              <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-zinc-900 dark:text-white">
+              <p className="text-primary font-black uppercase tracking-[0.4em] text-[9px] mb-3">Innovative Digital Growth</p>
+              <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.95] text-zinc-900 dark:text-white">
                 Building <br /> <span className="text-primary">Digital</span> <br /> Success.
               </h1>
               
-              <p className="max-w-xl text-xl md:text-2xl text-zinc-500 dark:text-zinc-400 leading-relaxed font-bold">
+              <p className="max-w-xl text-base md:text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed font-bold">
                 We create powerful digital solutions for brands that want to grow, scale, and lead in their industry.
               </p>
               
-              <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
+              <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
                 <Link
                   href="#contact"
-                  className="w-full sm:w-auto px-12 py-6 bg-primary text-white rounded-[2rem] font-black text-xl shadow-[0_20px_50px_rgba(8,145,178,0.3)] hover:shadow-[0_20px_50px_rgba(8,145,178,0.5)] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3"
+                  className="w-full sm:w-auto px-6 py-3 bg-primary text-white rounded-xl font-black text-base shadow-lg hover:shadow-primary/20 hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3"
                 >
                   Get a Proposal
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                 </Link>
                 <button
                   onClick={() => setActiveService(0)}
-                  className="w-full sm:w-auto px-12 py-6 bg-white dark:bg-zinc-900 text-foreground border border-zinc-200 dark:border-zinc-800 rounded-[2rem] font-black text-xl shadow-xl hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all flex items-center justify-center gap-3"
+                  className="w-full sm:w-auto px-6 py-3 bg-white dark:bg-zinc-900 text-foreground border border-zinc-200 dark:border-zinc-800 rounded-xl font-black text-base shadow-md hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all flex items-center justify-center gap-3"
                 >
                   Explore Services
                 </button>
@@ -299,12 +304,13 @@ export default function Home() {
           <div className="flex animate-scroll whitespace-nowrap gap-12 md:gap-24">
             {[...CLIENTS, ...CLIENTS].map((client, idx) => (
               <div key={idx} className="flex-shrink-0 flex items-center justify-center p-4">
-                <Image 
+                <img 
                   src={`https://wrnxt.com/assets/img/clients/client-${client.id}.${client.ext}`} 
                   alt={client.name} 
-                  width={200}
-                  height={100}
-                  className="h-16 md:h-24 w-auto object-contain filter brightness-100 contrast-125 dark:brightness-200 transition-all duration-500 hover:scale-110"
+                  className="h-12 md:h-16 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = 'none';
+                  }}
                 />
               </div>
             ))}

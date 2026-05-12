@@ -45,14 +45,16 @@ export default function Navbar() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2 group transition-all">
-          <img
-            src="https://www.wrnxt.com/assets/img/wrnxt%20Logo_1.png"
-            alt="WRNXT Logo"
-            className="h-10 w-auto group-hover:scale-105 transition-transform duration-300"
-          />
+          <div className="relative p-2 bg-white dark:bg-zinc-800 rounded-xl shadow-lg border border-zinc-100 dark:border-zinc-700">
+            <img
+              src="https://www.wrnxt.com/assets/img/wrnxt%20Logo_1.png"
+              alt="WRNXT Logo"
+              className="h-12 md:h-16 w-auto group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-10 ml-auto mr-12">
+        <nav className="hidden lg:flex items-center gap-8 ml-auto">
           {NAV_LINKS.map(({ label, href }) => (
             <Link
               key={href}
@@ -64,13 +66,13 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-4 ml-8">
           <button
             onClick={() => {
               const el = document.getElementById('contact');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-6 py-2.5 rounded-full bg-primary text-primary-foreground text-sm font-bold shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300"
+            className="px-8 py-3 rounded-full bg-primary text-primary-foreground text-sm font-bold shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300"
           >
             Get Started
           </button>

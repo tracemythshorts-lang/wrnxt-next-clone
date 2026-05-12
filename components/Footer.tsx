@@ -23,13 +23,15 @@ export default function Footer() {
     <footer className="bg-zinc-950 text-zinc-400 py-20 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          <div className="space-y-6">
-            <Link href="/" className="flex items-center gap-2 group">
-              <img
-                src="https://www.wrnxt.com/assets/img/wrnxt%20Logo_1.png"
-                alt="WRNXT Logo"
-                className="h-12 w-auto brightness-0 invert"
-              />
+          <div className="space-y-8">
+            <Link href="/" className="inline-block group">
+              <div className="p-3 bg-white rounded-2xl shadow-2xl border border-white/20">
+                <img
+                  src="https://www.wrnxt.com/assets/img/wrnxt%20Logo_1.png"
+                  alt="WRNXT Logo"
+                  className="h-16 w-auto"
+                />
+              </div>
             </Link>
             <p className="text-sm leading-relaxed">
               Leading information technology, online reputation management and digital marketing company dedicated to delivering exceptional services.

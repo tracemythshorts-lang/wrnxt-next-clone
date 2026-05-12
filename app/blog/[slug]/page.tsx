@@ -21,8 +21,9 @@ const BLOG_POSTS = {
   },
 };
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-  const post = BLOG_POSTS[params.slug as keyof typeof BLOG_POSTS];
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = BLOG_POSTS[slug as keyof typeof BLOG_POSTS];
 
   if (!post) {
     return (
