@@ -243,7 +243,7 @@ export default function Home() {
       )}
 
       {/* Hero Section */}
-      <section id="hero" className="relative pt-16 pb-12 lg:pt-24 lg:pb-20 overflow-hidden bg-gradient-to-br from-secondary via-background to-background">
+      <section id="hero" className="relative pt-24 pb-20 lg:pt-36 lg:pb-32 overflow-hidden bg-gradient-to-br from-[#020617] via-[#0f172a] to-background">
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-0 left-1/3 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] animate-pulse"></div>
           <div className="absolute bottom-0 right-1/3 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[150px] animate-pulse delay-1000"></div>
@@ -257,26 +257,26 @@ export default function Home() {
                 <span className="text-xs font-black uppercase tracking-widest text-zinc-600 dark:text-zinc-400">Digital Solutions Partner</span>
               </div>
               
-              <p className="text-primary font-black uppercase tracking-[0.4em] text-[9px] mb-3">Innovative Digital Growth</p>
-              <h1 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.95] text-zinc-900 dark:text-white">
-                Building <br /> <span className="text-primary">Digital</span> <br /> Success.
+              <p className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4">Innovative Digital Growth</p>
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.95] text-zinc-900 dark:text-white">
+                Building <br /> <span className="text-primary text-glow">Digital</span> <br /> Success.
               </h1>
               
-              <p className="max-w-xl text-base md:text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed font-bold">
+              <p className="max-w-xl text-lg md:text-xl text-zinc-500 dark:text-zinc-400 leading-relaxed font-bold">
                 We create powerful digital solutions for brands that want to grow, scale, and lead in their industry.
               </p>
               
-              <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row items-center gap-6 pt-6">
                 <Link
                   href="#contact"
-                  className="w-full sm:w-auto px-6 py-3 bg-primary text-white rounded-xl font-black text-base shadow-lg hover:shadow-primary/20 hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3"
+                  className="w-full sm:w-auto px-10 py-4 bg-primary text-white rounded-2xl font-black text-lg shadow-[0_10px_40px_rgba(8,145,178,0.3)] hover:shadow-[0_20px_50px_rgba(8,145,178,0.5)] hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3"
                 >
                   Get a Proposal
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
                 </Link>
                 <button
                   onClick={() => setActiveService(0)}
-                  className="w-full sm:w-auto px-6 py-3 bg-white dark:bg-zinc-900 text-foreground border border-zinc-200 dark:border-zinc-800 rounded-xl font-black text-base shadow-md hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all flex items-center justify-center gap-3"
+                  className="w-full sm:w-auto px-10 py-4 bg-white dark:bg-zinc-900 text-foreground border border-zinc-200 dark:border-zinc-800 rounded-2xl font-black text-lg shadow-xl hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all flex items-center justify-center gap-3"
                 >
                   Explore Services
                 </button>
@@ -303,15 +303,17 @@ export default function Home() {
         <div className="relative">
           <div className="flex animate-scroll whitespace-nowrap gap-12 md:gap-24">
             {[...CLIENTS, ...CLIENTS].map((client, idx) => (
-              <div key={idx} className="flex-shrink-0 flex items-center justify-center p-4">
-                <img 
-                  src={`https://wrnxt.com/assets/img/clients/client-${client.id}.${client.ext}`} 
-                  alt={client.name} 
-                  className="h-12 md:h-16 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
-                  }}
-                />
+              <div key={idx} className="flex-shrink-0 flex items-center justify-center p-6 group/logo">
+                <div className="relative p-8 bg-zinc-900/0 hover:bg-zinc-900/50 rounded-3xl transition-all duration-500 hover:shadow-[0_0_50px_rgba(8,145,178,0.1)] border border-transparent hover:border-white/5">
+                  <img 
+                    src={`https://wrnxt.com/assets/img/clients/client-${client.id}.${client.ext}`} 
+                    alt={client.name} 
+                    className="h-16 md:h-24 w-auto object-contain filter grayscale group-hover/logo:grayscale-0 brightness-100 contrast-125 dark:brightness-200 transition-all duration-500 group-hover/logo:scale-110"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+                </div>
               </div>
             ))}
           </div>
