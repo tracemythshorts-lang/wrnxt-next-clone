@@ -1,6 +1,8 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const CLIENTS = [
   { name: "Prabhu's Pure Veg Restaurant", id: 1, ext: "png" },
@@ -412,48 +414,8 @@ export default function Home() {
             ))}
           </div>
           
-          {/* Gradient Overlays */}
           <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-zinc-50 dark:from-zinc-950 to-transparent z-10 pointer-events-none"></div>
           <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-zinc-50 dark:from-zinc-950 to-transparent z-10 pointer-events-none"></div>
-        </div>
-      </section>
-
-      {/* Case Studies Section */}
-      <section id="cases" className="py-24 bg-white dark:bg-black">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-6">Success <span className="text-primary">Stories</span></h2>
-            <p className="max-w-2xl mx-auto text-xl text-zinc-500 font-bold">
-              Real results for real businesses. See how we help our clients dominate their markets.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-12">
-            {[
-              { 
-                title: "E-Commerce Growth Engine", 
-                client: "Global Retailer", 
-                result: "+140% Sales Increase",
-                desc: "Re-engineered a legacy platform for mobile-first performance and zero-downtime scalability."
-              },
-              { 
-                title: "Digital Reputation Shield", 
-                client: "Financial Institution", 
-                result: "99% Positive Sentiment",
-                desc: "Implemented a 24/7 monitoring and response system to protect brand equity in critical markets."
-              }
-            ].map((study, i) => (
-              <div key={i} className="group relative rounded-[3.5rem] overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-primary/20 transition-all duration-500">
-                <div className="aspect-[16/9] bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center">
-                   <span className="text-primary font-black text-2xl group-hover:scale-110 transition-transform">{study.result}</span>
-                </div>
-                <div className="p-10 space-y-4">
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">{study.client}</span>
-                  <h3 className="text-2xl font-black">{study.title}</h3>
-                  <p className="text-zinc-500 font-medium">{study.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
