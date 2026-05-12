@@ -25,13 +25,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-8">
             <Link href="/" className="inline-block group">
-              <div className="px-5 py-3 bg-zinc-900/50 backdrop-blur-md rounded-2xl border border-white/5 group-hover:border-primary/30 transition-all duration-500 shadow-2xl">
-                <img
-                  src="https://www.wrnxt.com/assets/img/wrnxt%20Logo_1.png"
-                  alt="WRNXT Logo"
-                  className="h-16 w-auto group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
+              <img
+                src="https://www.wrnxt.com/assets/img/wrnxt%20Logo_1.png"
+                alt="WRNXT Logo"
+                className="h-16 md:h-20 w-auto group-hover:scale-105 transition-transform duration-500 filter drop-shadow-xl"
+              />
             </Link>
             <p className="text-sm leading-relaxed">
               Leading information technology, online reputation management and digital marketing company dedicated to delivering exceptional services.

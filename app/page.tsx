@@ -81,9 +81,11 @@ export default function Home() {
   const [activeService, setActiveService] = React.useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = React.useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const form = e.currentTarget;
     
     try {
@@ -93,13 +95,17 @@ export default function Home() {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData as any).toString(),
       });
+      
       if (res.ok) {
         setIsSubmitted(true);
       } else {
         throw new Error("Form submission failed");
       }
     } catch (error) {
-      alert("Submission failed. Please try again or email us directly at info@wrnxt.com");
+      console.error(error);
+      alert("Submission failed. Please try again or contact us directly at info@wrnxt.com");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -588,10 +594,23 @@ export default function Home() {
                   
                   <button
                     type="submit"
-                    className="w-full py-7 bg-primary text-white rounded-[2.5rem] font-black text-2xl shadow-[0_20px_60px_rgba(8,145,178,0.3)] hover:shadow-[0_20px_60px_rgba(8,145,178,0.5)] hover:-translate-y-1 active:scale-[0.98] transition-all flex items-center justify-center gap-4"
+                    disabled={isSubmitting}
+                    className="w-full py-7 bg-primary text-white rounded-[2.5rem] font-black text-2xl shadow-[0_20px_60px_rgba(8,145,178,0.3)] hover:bg-[#0ea5e9] hover:shadow-[0_20px_60px_rgba(8,145,178,0.5)] hover:-translate-y-1 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-4 cursor-pointer group"
                   >
-                    Send Message
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin h-8 w-8 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Processing...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Send Message</span>
+                        <svg className="w-8 h-8 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                      </>
+                    )}
                   </button>
                   
                   <div className="flex items-center justify-center gap-4 text-zinc-400">

@@ -44,14 +44,12 @@ export default function Navbar() {
       ].join(" ")}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2 group transition-all">
-          <div className="relative px-4 py-2 bg-zinc-900/50 backdrop-blur-md rounded-2xl border border-white/5 group-hover:border-primary/30 transition-all duration-500 shadow-2xl">
-            <img
-              src="https://www.wrnxt.com/assets/img/wrnxt%20Logo_1.png"
-              alt="WRNXT Logo"
-              className="h-12 md:h-14 w-auto group-hover:scale-105 transition-transform duration-500"
-            />
-          </div>
+        <Link href="/" className="flex items-center group transition-all">
+          <img
+            src="https://www.wrnxt.com/assets/img/wrnxt%20Logo_1.png"
+            alt="WRNXT Logo"
+            className="h-12 md:h-16 w-auto group-hover:scale-105 transition-transform duration-500 filter drop-shadow-lg"
+          />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-8 ml-auto">
