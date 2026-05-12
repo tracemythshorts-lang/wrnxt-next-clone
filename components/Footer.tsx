@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useRef, useEffect } from "react";
 
 const SERVICES = [
   { label: "Online Reputation Management", href: "/#services" },
@@ -19,10 +20,10 @@ const QUICK_LINKS = [
 ];
 
 export default function Footer() {
-  const [showPhoneOptions, setShowPhoneOptions] = Link.useState(false);
-  const phoneRef = Link.useRef<HTMLLIElement>(null);
+  const [showPhoneOptions, setShowPhoneOptions] = useState(false);
+  const phoneRef = useRef<HTMLLIElement>(null);
 
-  Link.useEffect(() => {
+  useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (showPhoneOptions && phoneRef.current && !phoneRef.current.contains(e.target as Node)) {
         setShowPhoneOptions(false);
